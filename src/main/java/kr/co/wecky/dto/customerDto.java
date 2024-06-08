@@ -27,6 +27,7 @@ public class CustomerDto {
 	private String pic_nm;
 	private String tkcg_dept_nm;
 	private String pic_role;
+	private String pic_telno;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate frst_reg_dt;
 	private BigDecimal frst_retr_sn;
