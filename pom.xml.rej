@@ -1,9 +1,0 @@
-diff a/pom.xml b/pom.xml	(rejected hunks)
-@@ -191,6 +191,7 @@
-      <artifactId>spring-security-config</artifactId>
-      <version>${org.springframework-version}</version>
-  </dependency>
-++<<<<<<< Updated upstream
- +
- +=======
-  <dependency>
