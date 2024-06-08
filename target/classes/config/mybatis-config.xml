@@ -3,5 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="kr.co.wecky.dto.CustomerDto" alias="customerDto"/>
+		<typeAlias type="kr.co.wecky.dto.ManagerDto" alias="managerDto"/>
 	</typeAliases>
 </configuration>
