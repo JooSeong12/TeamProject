@@ -1,0 +1,91 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    height: auto;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* 검색바 스타일 */
+.searchbar {
+    flex: 1; 
+    max-height: 1000px; 
+    overflow-y: auto; 
+    background-color: #f1f1f1; 
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+/* 회원정보 스타일 */
+.content {
+    flex: 1; 
+    max-height: 1000px; 
+    overflow-y: auto; 
+    background-color: #fff; 
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+/* 상담내역 스타일 */
+.consulting {
+    flex: 1; 
+    max-height: 900px; 
+    overflow-y: auto; 
+    background-color: #f1f1f1; 
+    padding: 15px;
+    border: 1px solid #ccc;
+    flex-direction: column;
+}
+
+.FirstLineButtons > input[type="button"] {
+	width: 80px;
+	margin-left: 1%; 
+    margin-right: 1%; 
+    justify-content: space-between; 
+}
+
+.secondLineButtons > input[type="button"] {
+	width: 80px;
+	margin-left: 1%; 
+    margin-top: 10px; 
+    margin-bottom: 5px; 
+    justify-content: space-between; 
+}
+
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}

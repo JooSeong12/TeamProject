@@ -8,10 +8,17 @@
 <title>고객 정보 관리</title>
 </head>
 <body>
+<<<<<<< Updated upstream
 	<h2>고객정보 관리</h2>
 	
 	<!-- 고객 검색, 목록 출력 부분 -->
 	<table >
+=======
+	<h2 >고객정보 관리</h2>
+	
+	<!-- 고객 검색, 목록 출력 부분 -->
+	<table style="margin-top: 30px;'">
+>>>>>>> Stashed changes
 		<tr>
 			<th>고객 성명:</th>
 		</tr>
