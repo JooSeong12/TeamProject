@@ -9,14 +9,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class managerDto {
+public class ManagerDto {
 
-	private String  PIC_SN_VL;
+	private String PIC_SN_VL;
+	private String PIC_NM;
 	private String TKCG_DEPT_NM;
-	private String FRST_REG_DT;
-	private String FRST_RGTR_SN;
-	private String LAST_MDFCN_DT;
-	private String USE_YN;
-	
-
+	private String PIC_ROLE;
 }
