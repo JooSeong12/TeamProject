@@ -9,9 +9,10 @@
     <title>고객정보 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="${path}/resources/css/customer.css" rel="stylesheet">
+    <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+    <link href="${contextPath}/resources/css/customer.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="${path}/resources/js/search.js"></script>
+    <script src="${contextPath}/resources/js/search.js"></script>
 </head>
 <body>
     <div class="header">
@@ -24,15 +25,16 @@
                 <input type="text" name="keyword" id="keyword">
                	<button type="button" name="searchType" value="condition" class="btn btn-outline-secondary btn-sm" id="condition">조건검색</button>
                 <button type="button" name="searchType" value="all" class="btn btn-outline-secondary btn-sm" id="all">전체검색</button>
-			<table style="height: 625px;">
-				<tr>
-					<td style="vertical-align: top;">
-						<!-- 검색 결과 보이는곳 -->
-						<div id="result"></div>
-					</td>
-				</tr>
-
-			</table>
+			<div class="table-container">
+			    <table class="result">
+			        <tr>
+			            <td style="vertical-align: top;">
+			                <!-- 검색 결과 보이는곳 -->
+			                <div id="result"></div>
+			            </td>
+			        </tr>
+			    </table>
+			</div>
         </div>
 		
         <div class="content">

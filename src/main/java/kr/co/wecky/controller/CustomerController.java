@@ -30,10 +30,7 @@ public class CustomerController {
 
 	@PostMapping("/customerList")
 	@ResponseBody
-	public List<CustomerDto> getListCustomer(@RequestBody Map<String, String> body) {
-		String keyword = body.get("keyword");
-		System.out.println("keyword = " + keyword);
-		
+	public List<CustomerDto> getListCustomer() {
 		List<CustomerDto> dtos = customerService.customerList();
 		return dtos;
 	}
