@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	
 	@GetMapping("/manage")
-	public String customerManage(){
+	public String customerManage() {
 		return "customer/customer_manage";
 	}
 
