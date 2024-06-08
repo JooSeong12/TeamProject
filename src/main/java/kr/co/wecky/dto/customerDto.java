@@ -13,25 +13,25 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDto {
-	private Long CUST_SN;
-	private String CUST_NM;
-	private String EML_ADDR;
+	private Long cust_sn;
+	private String cust_nm;
+	private String eml_addr;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate BRDT;
-	private String HOME_TELNO;
-	private String MBL_TELNO;
-	private String PRIDTF_NO;
-	private String CR_NM;
-	private String ROAD_NM_ADDR;
-	private String  PIC_SN_VL;
-	private String  PIC_NM;
-	private String TKCG_DEPT_NM;
-	private String  PIC_ROLE;
+	private LocalDate brdt;
+	private String home_telno;
+	private String mbl_telno;
+	private String pridtf_no;
+	private String cr_nm;
+	private String road_nm_addr;
+	private String pic_sn_vl;
+	private String pic_nm;
+	private String tkcg_dept_nm;
+	private String pic_role;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate  FRST_REG_DT;
-	private BigDecimal  FRST_RGTR_SN;
+	private LocalDate frst_reg_dt;
+	private BigDecimal frst_retr_sn;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate LAST_MDFCN_DT;
-	private String USE_YN;
+	private LocalDate last_mdfcn_dt;
+	private String use_yn;
 
 }

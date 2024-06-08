@@ -11,8 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ManagerDto {
 
-	private String PIC_SN_VL;
-	private String PIC_NM;
-	private String TKCG_DEPT_NM;
-	private String PIC_ROLE;
+	private String pic_sn_vl;
+	private String pic_nm;
+	private String tkcg_dept_nm;
+	private String pic_role;
 }
