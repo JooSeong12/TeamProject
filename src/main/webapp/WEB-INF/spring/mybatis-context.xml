@@ -7,11 +7,8 @@
     
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver"/>
-<<<<<<< Updated upstream
-		<property name="url" value="jdbc:postgresql://localhost:5432/testdb"/>
-=======
 		<property name="url" value="jdbc:postgresql://localhost:5432/customer"/>
->>>>>>> Stashed changes
+
 		<property name="username" value="postgres"/>
 		<property name="password" value="1111"/>
 	</bean>
