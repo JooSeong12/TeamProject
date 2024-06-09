@@ -104,10 +104,10 @@ $(document).ready(function() {
             "<tr> <td> *전화번호: </td>" + "<td><input type='text' name='home_telno' class='form-control form-control-sm' value='" + formatTelNumber(data.home_telno)  + "'></td> </tr>" +
             "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' name='mbl_telno' class='form-control form-control-sm' value='" + formatPhoneNumber(data.mbl_telno)  + "'></td> </tr>" +
             "<tr> <td> *직업: </td>" + "<td><input type='text' name='cr_nm' class='form-control form-control-sm' value='" + data.cr_nm  + "'></td> </tr>" +
-            "<tr> <td> *주소: </td>" + "<td><textarea name='pridtf_no' class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
+            "<tr> <td> *주소: </td>" + "<td><textarea name='road_nm_addr' class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
         
         var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
-            "<input type='text'class='form-control'name='pridtf_no' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
+            "<input type='text'class='form-control' name='pic_nm' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
             "<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
             "<tr> <td> **부서: </td>" + "<td><input type='text' name='tkcg_dept_nm' class='form-control form-control-sm' value='" + data.tkcg_dept_nm  + "' readonly disabled></td> </tr>" +
             "<tr> <td> **직위: </td>" + "<td><input type='text'name='pic_role' class='form-control form-control-sm' value='" + data.pic_role  + "' readonly disabled></td> </tr>" +
