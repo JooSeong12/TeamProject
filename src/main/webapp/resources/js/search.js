@@ -1,5 +1,5 @@
-var allData;
 $(document).ready(function() {
+	allData();
 	function formatPhoneNumber(phoneNumber) {
 		  return phoneNumber.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
 		}
@@ -9,7 +9,7 @@ $(document).ready(function() {
 	function formatPridtfNumber(pridtfNumber) {
 		  return pridtfNumber.replace(/(\d{6})(\d{7})/, '$1-$2');
 		}
-	
+	// 레디오 버튼 선택 시 고객 detail 화면 
 	$(document).on("click", "input:radio[name='result']", function(){
 	var targetId = $(this).attr('id');
     var keyname = "keyword";
@@ -23,38 +23,11 @@ $(document).ready(function() {
       dataType : "json",
       contentType : "application/json",
       success : function(data) {
-    	  const currentDate = new Date();
-    	  const formattedDate =
-    	    currentDate.getFullYear() + "-" +
-    	    String(currentDate.getMonth() + 1).padStart(2, '0') + "-" +
-    	    String(currentDate.getDate()).padStart(2, '0');
-    	  var strContent = 
-    		 "<tr> <td> **작성일자: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formattedDate + "' readonly disabled>" +
-    		 		"<input type='hidden' name='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
-			 "<tr> <td> *고객명: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data.cust_nm + "'</td> </tr>" +
-			 "<tr> <td> *실명번호: </td>" + "<td><input type='text' class='form-control form-control-sm'value='" + formatPridtfNumber(data.pridtf_no)  + "'</td> </tr>" +
-			 "<tr> <td> *E-mail: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data.eml_addr  + "'</td> </tr>" +
-			 "<tr> <td> *전화번호: </td>" + "<td><input type='text'class='form-control form-control-sm' value='" + formatTelNumber(data.home_telno)  + "'</td> </tr>" +
-			 "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatPhoneNumber(data.mbl_telno)  + "'</td> </tr>" +
-			 "<tr> <td> *직업: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data.cr_nm  + "'</td> </tr>" +
-			 "<tr> <td> *주소: </td>" + "<td><textarea class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
-        $("#customer").html(strContent);
-         	var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
-         					"<input type='text'class='form-control' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
-         							"<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
-  			 "<tr> <td> **부서: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data.tkcg_dept_nm  + "'readonly disabled></td> </tr>" +
-  			 "<tr> <td> **직위: </td>" + "<td><input type='text' class='form-control form-control-sm'value='" + data.pic_role  + "'readonly disabled></td> </tr>" +
-			 "<tr> <td> **연락처: </td>" + "<td><input type='text' class='form-control form-control-sm'value='" + formatPhoneNumber(data.pic_telno) +"'readonly disabled></td> </tr>";
-        $("#manager").html(strManager);
-        $(".defalut").hide();
-      },
-      error : function(
-          errorThrown) {
-        alert(errorThrown.statusText);
+    	  customerDetails(data);
       }
     });
 });
-	
+	// 조건 검색
 	$("#condition").on("click", function() {
 	    var keyword = $("#keyword").val().trim();
 	    if (keyword == "") {
@@ -63,6 +36,11 @@ $(document).ready(function() {
 	      var keyname = "keyword";
 	      var obj = {};
 	      obj[keyname] = keyword;
+	      searchDate(obj);
+	    }
+    });
+	
+	function searchDate(obj) {
 	      $.ajax({
 	        url : "/customerOne",
 	        type : "post",
@@ -71,45 +49,7 @@ $(document).ready(function() {
 	        dataType : "json",
 	        contentType : "application/json",
 	        success : function(data) {
-	          $("#result").empty();
-	          for (var i = 0; i < data.length; i++) {
-	            if(i == 0){
-	            	var str = "<label><input type='radio' id='" + data[i].pridtf_no + "' name='result' class='result' checked>"
-	                + data[i].cust_nm
-	                + "</label><br>";
-		            console.log(str);
-		            console.log(data[i]);
-		            $("#result").append(str);
-		            const currentDate = new Date();
-		            const formattedDate =
-		        	    currentDate.getFullYear() + "-" +
-		        	    String(currentDate.getMonth() + 1).padStart(2, '0') + "-" +
-		        	    String(currentDate.getDate()).padStart(2, '0');
-	            	var strContent = "<tr> <td> **작성일자: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + formattedDate + "' readonly disabled>" +
-			    		 		"<input type='hidden' name='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
-			    				 "<tr> <td> *고객명: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + data[i].cust_nm + "'</td> </tr>" +
-			    				 "<tr> <td> *실명번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatPridtfNumber(data[i].pridtf_no)  + "'</td> </tr>" +
-			    				 "<tr> <td> *E-mail: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].eml_addr  + "'</td> </tr>" +
-			    				 "<tr> <td> *전화번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatTelNumber(data[i].home_telno)  + "'</td> </tr>" +
-			    				 "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatPhoneNumber(data[i].mbl_telno)  + "'</td> </tr>" +
-			    				 "<tr> <td> *직업: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + data[i].cr_nm  + "'</td> </tr>" +
-			    				 "<tr> <td> *주소: </td>" + "<td><textarea class='form-control' rows='2'>" + data[i].road_nm_addr + "</textarea></td> </tr>";
-	            	var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
- 					"<input type='text'class='form-control' aria-label='Text input with icon' value='" + data[i].pic_nm + "'>" +
- 							"<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
-						   			 "<tr> <td> **부서: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].tkcg_dept_nm  + "'readonly disabled></td> </tr>" +
-						   			 "<tr> <td> **직위: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].pic_role  + "'readonly disabled></td> </tr>" +
-									 "<tr> <td> **연락처: </td>" + "<td><input type='text' class='form-control form-control-sm' value='"+ formatPhoneNumber(data[i].pic_telno) + "'readonly disabled></td> </tr>";
-	            	$("#customer").html(strContent);
-	            	$("#manager").html(strManager);
-	            	$(".defalut").hide();
-	            } else {
-	            	var str = "<label><input type='radio' id='" + data[i].pridtf_no + "' name='result'>"
-	                + data[i].cust_nm
-	                + "</label><br>";
-		            $("#result").append(str);
-	            }
-	          }
+	        	customerList(data)
 	        },
 	        error : function(
 	            errorThrown) {
@@ -117,60 +57,70 @@ $(document).ready(function() {
 	        }
 	      });
 	    }
-    });
+
+	// 전체 데이터
+	function allData() {
+        $.ajax({
+            url: "/customerList",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(data) {
+            	customerList(data);
+            },
+            error: function(errorThrown) {
+                alert(errorThrown.statusText);
+            }
+        });
+    }
+	
+	// 전체/조건 검색 공통
+	 function customerList(data) {
+	        $("#result").empty();
+	        for (var i = 0; i < data.length; i++) {
+	            var str = "<label><input type='radio' id='" + data[i].pridtf_no + "' name='result' class='result' " + (i == 0 ? "checked" : "") + ">"
+	                + data[i].cust_nm
+	                + "</label><br>";
+	            $("#result").append(str);
+
+	            if (i == 0) {
+	                customerDetails(data[i]);
+	            }
+	        }
+	 }
+	
+    function customerDetails(data) {
+        const currentDate = new Date();
+        const formattedDate =
+            currentDate.getFullYear() + "-" +
+            String(currentDate.getMonth() + 1).padStart(2, '0') + "-" +
+            String(currentDate.getDate()).padStart(2, '0');
+
+        var strContent = "<tr> <td> **작성일자: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + formattedDate + "' readonly disabled>" +
+            "<input type='hidden' name='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
+            "<tr> <td> *고객명: </td>" + "<td><input type='text' name='cust_nm' class='form-control form-control-sm' value='" + data.cust_nm + "'></td> </tr>" +
+            "<tr> <td> *실명번호: </td>" + "<td><input type='text' name='pridtf_no' class='form-control form-control-sm' value='" + formatPridtfNumber(data.pridtf_no)  + "'></td> </tr>" +
+            "<tr> <td> *E-mail: </td>" + "<td><input type='text' name='eml_addr' class='form-control form-control-sm' value='" + data.eml_addr  + "'></td> </tr>" +
+            "<tr> <td> *전화번호: </td>" + "<td><input type='text' name='home_telno' class='form-control form-control-sm' value='" + formatTelNumber(data.home_telno)  + "'></td> </tr>" +
+            "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' name='mbl_telno' class='form-control form-control-sm' value='" + formatPhoneNumber(data.mbl_telno)  + "'></td> </tr>" +
+            "<tr> <td> *직업: </td>" + "<td><input type='text' name='cr_nm' class='form-control form-control-sm' value='" + data.cr_nm  + "'></td> </tr>" +
+            "<tr> <td> *주소: </td>" + "<td><textarea name='pridtf_no' class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
+        
+        var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
+            "<input type='text'class='form-control'name='pridtf_no' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
+            "<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
+            "<tr> <td> **부서: </td>" + "<td><input type='text' name='tkcg_dept_nm' class='form-control form-control-sm' value='" + data.tkcg_dept_nm  + "' readonly disabled></td> </tr>" +
+            "<tr> <td> **직위: </td>" + "<td><input type='text'name='pic_role' class='form-control form-control-sm' value='" + data.pic_role  + "' readonly disabled></td> </tr>" +
+            "<tr> <td> **연락처: </td>" + "<td><input type='text' name='pic_telno' class='form-control form-control-sm' value='"+ formatPhoneNumber(data.pic_telno) + "' readonly disabled></td> </tr>";
+
+        $("#customer").html(strContent);
+        $("#manager").html(strManager);
+        $(".defalut").hide();
+    }
 	
 	$("#all").on("click", function() {
-	      $.ajax({
-	        url : "/customerList",
-	        type : "post",
-	        dataType : "json",
-	        contentType : "application/json",
-	        success : function(data) {
-	          $("#result").empty();
-	          for (var i = 0; i < data.length; i++) {
-	            if(i == 0){
-	            	var str = "<label><input type='radio' id='" + data[i].pridtf_no + "' name='result' class='result' checked>"
-	                + data[i].cust_nm
-	                + "</label><br>";
-		            console.log(str);
-		            console.log(data[i]);
-		            $("#result").append(str);
-		            const currentDate = new Date();
-		            const formattedDate =
-		        	    currentDate.getFullYear() + "-" +
-		        	    String(currentDate.getMonth() + 1).padStart(2, '0') + "-" +
-		        	    String(currentDate.getDate()).padStart(2, '0');
-	            	var strContent = "<tr> <td> **작성일자: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + formattedDate + "' readonly disabled>" +
-			    		 		"<input type='hidden' name='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
-			    				 "<tr> <td> *고객명: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + data[i].cust_nm + "'</td> </tr>" +
-			    				 "<tr> <td> *실명번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatPridtfNumber(data[i].pridtf_no)  + "'</td> </tr>" +
-			    				 "<tr> <td> *E-mail: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].eml_addr  + "'</td> </tr>" +
-			    				 "<tr> <td> *전화번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatTelNumber(data[i].home_telno)  + "'</td> </tr>" +
-			    				 "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + formatPhoneNumber(data[i].mbl_telno)  + "'</td> </tr>" +
-			    				 "<tr> <td> *직업: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + data[i].cr_nm  + "'</td> </tr>" +
-			    				 "<tr> <td> *주소: </td>" + "<td><textarea class='form-control' rows='2'>" + data[i].road_nm_addr + "</textarea></td> </tr>";
-	            	var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
- 					"<input type='text'class='form-control' aria-label='Text input with icon' value='" + data[i].pic_nm + "'>" +
- 							"<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
-						   			 "<tr> <td> **부서: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].tkcg_dept_nm  + "'readonly disabled></td> </tr>" +
-						   			 "<tr> <td> **직위: </td>" + "<td><input type='text' class='form-control form-control-sm' value='" + data[i].pic_role  + "'readonly disabled></td> </tr>" +
-									 "<tr> <td> **연락처: </td>" + "<td><input type='text' class='form-control form-control-sm' value='"+ formatPhoneNumber(data[i].pic_telno) + "'readonly disabled></td> </tr>";
-	            	$("#customer").html(strContent);
-	            	$("#manager").html(strManager);
-	            	$(".defalut").hide();
-	            } else {
-	            	var str = "<label><input type='radio' id='" + data[i].pridtf_no + "' name='result'>"
-	                + data[i].cust_nm
-	                + "</label><br>";
-		            $("#result").append(str);
-	            }
-	          }
-	        },
-	        error : function(errorThrown) {
-	          alert(errorThrown.statusText);
-	        }
-	      });
-    });
+		allData();
+	});
 	
 	$(document).on('click', '.search-icon', function() {
 		    var jspPath = '/managerList';
@@ -193,7 +143,12 @@ $(document).ready(function() {
 	        success: function(response) {
 	            if (response === "success") { // 서버에서 문자열로 반환하므로 비교할 값도 문자열로 변경
 	                alert("고객이 삭제되었습니다.");
-	                location.reload();
+	                
+	                if($("#keyword").val().trim() != ""){
+	                	searchDate(keyword)
+	                } else {
+	                	allData();
+	                } 
 	            } else {
 	                alert("고객 삭제에 실패했습니다. 다시 시도해주세요.");
 	            }
