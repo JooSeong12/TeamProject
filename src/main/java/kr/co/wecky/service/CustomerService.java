@@ -31,4 +31,8 @@ public class CustomerService {
 		return mapper.managerList();
 	}
 	
+	public void deleteCustomer(String pridtf_no) {
+		mapper.deleteCustomer(pridtf_no);
+	}
+	
 }

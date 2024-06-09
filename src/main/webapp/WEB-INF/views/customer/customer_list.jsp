@@ -111,13 +111,13 @@
 			<div class="FirstLineButtons">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="변경">
-			    <input type="button" class="btn btn-outline-secondary btn-sm" value="삭제">
+			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
 			    <br>
 			</div>
 			<div class="secondLineButtons">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="고객조회">
-			        <input type="button" class="btn btn-outline-secondary btn-sm" value="종료"">
+			        <input type="button" class="btn btn-outline-secondary btn-sm" value="종료">
     		</div>
         </div>
     </div>

@@ -6,6 +6,7 @@
 	<select id="customerList" resultType="customerDto">
 		SELECT * FROM kdt_cust_info_basc;
 	</select>
+	
 	<select id="searchCustomer" parameterType="String" resultType="customerDto">
 		<choose>
 			<when test="keyword != null">
@@ -17,10 +18,17 @@
 			</otherwise>
 		</choose>
 	</select>
+	
 	<select id="customerInfo" parameterType="String" resultType="customerDto">
 		SELECT * FROM kdt_cust_info_basc WHERE pridtf_no = #{keyword};
 	</select>
+	
 	<select id="managerList" resultType="managerDto">
 		SELECT DISTINCT ON (pic_sn_vl) pic_sn_vl, pic_nm, tkcg_dept_nm, pic_role, pic_telno FROM kdt_cust_info_basc;
 	</select>
+	
+	<delete id="deleteCustomer">
+		DELETE FROM kdt_cust_info_basc
+    	WHERE pridtf_no = #{pridtf_no}
+	</delete>
 </mapper>
