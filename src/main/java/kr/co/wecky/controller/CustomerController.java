@@ -1,6 +1,7 @@
 package kr.co.wecky.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,18 @@ public class CustomerController {
 		List<ManagerDto> dtos = customerService.managerList();
 		model.addAttribute("dtos", dtos);
 		return "/customer/manager_select";
+	}
+	
+	@PostMapping("/deleteCustomer")
+	@ResponseBody
+	public String deleteCustomer(@RequestBody Map<String, String> body) {
+	    String pridtf_no = body.get("pridtf_no");
+	    try {
+	        customerService.deleteCustomer(pridtf_no);
+	        return "success";
+	    } catch (Exception e) {
+	        return "error";
+	    }
 	}
 
 }

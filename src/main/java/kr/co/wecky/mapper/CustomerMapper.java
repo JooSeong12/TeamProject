@@ -18,5 +18,7 @@ public interface CustomerMapper {
 	CustomerDto customerInfo(@Param("keyword") String keyword);
 
 	List<ManagerDto> managerList();
+	
+	void deleteCustomer(@Param("pridtf_no") String pridtf_no);
 
 }
