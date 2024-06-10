@@ -21,4 +21,6 @@ public interface CustomerMapper {
 	
 	void deleteCustomer(@Param("pridtf_no") String pridtf_no);
 
+	void updateCustomer(@Param("customerDto") CustomerDto customerDto);
+
 }

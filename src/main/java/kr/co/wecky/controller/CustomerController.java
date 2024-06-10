@@ -1,5 +1,6 @@
 package kr.co.wecky.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +69,19 @@ public class CustomerController {
 	    String pridtf_no = body.get("pridtf_no");
 	    try {
 	        customerService.deleteCustomer(pridtf_no);
+	        return "success";
+	    } catch (Exception e) {
+	        return "error";
+	    }
+	}
+	
+	@PostMapping("/updateCustomer")
+	@ResponseBody
+	public String updateCustomer(@RequestBody CustomerDto customerDto){
+		customerDto.setLast_mdfcn_dt(LocalDate.now());
+		System.out.println(customerDto.toString());
+	    try {
+	        customerService.updateCustomer(customerDto);
 	        return "success";
 	    } catch (Exception e) {
 	        return "error";
