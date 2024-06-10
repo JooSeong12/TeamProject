@@ -14,6 +14,32 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/js/search.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+<script type="text/javascript">
+var childWindow;
+
+$(document).ready(function() {
+    // 클릭 이벤트 핸들러 설정
+    $(document).on('click', '.search-icon', function() {
+        openChild();
+    });
+
+    function openChild() {
+        var jspPath = '/managerList';
+        childWindow = window.open(jspPath, '_blank', 'width=1000, height=500, top=500, left=500, scrollbars=yes');
+    }
+});
+
+// 부모 창에서 값을 받는 함수는 전역에 정의
+function receiveManagerValues(managerName, deptName, role, telno) {
+    document.getElementById("pic_nm_1").value = managerName;
+    document.getElementById("tkcg_dept_nm_1").value = deptName;
+    document.getElementById("pic_role_1").value = role;
+    document.getElementById("pic_telno_1").value = telno;
+    console.log("부모 창에서 전달된 관리자 이름: " + managerName);
+}
+// 함수가 제대로 정의되었는지 확인
+console.log(typeof receiveManagerValues); // Should log 'function'	
+</script>
 </head>
 <body>
     <div class="header">
@@ -104,13 +130,20 @@
         <div class="consulting">
             <h2>상담내역</h2>
             <table style="height: 610px;">
-				<tr>
-					<td style="vertical-align: top;">상담내용 table</td>
-				</tr>
-			</table>
+            <tr>
+               <td style="vertical-align: top;">
+                  2024-06-10 오후 1시 퇴직 연금 가입 안내 미팅.<br>
+                  2024-06-11 오전 10시 주식 투자 전략 논의.<br>
+                  2024-06-16 오후 2시 세금 최적화 전략 논의.<br>
+                  2024-06-19 오전 11시 재산 관리 방안 논의.<br>
+               </td>
+            </tr>
+         </table>
 			<br>
 			<div class="FirstLineButtons">
-			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
+<!-- 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록"> -->
+				<input type="button" class="btn btn-outline-secondary btn-sm" value="신규" id="clearInput">	
+				<input type="button" class="btn btn-outline-secondary btn-sm" value="등록" id="insertCustomer">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify"value="변경">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
 			    	<div id="customConfirmModal" class="modal">
@@ -123,7 +156,8 @@
 				            <button id="confirmYes">확인</button>
 			        	</div>
 		    		</div>
-			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
+<!-- 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규"> -->
+			    
 			    <br>
 			</div>
 			

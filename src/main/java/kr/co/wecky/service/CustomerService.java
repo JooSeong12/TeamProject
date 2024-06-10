@@ -40,4 +40,8 @@ public class CustomerService {
 		
 	}
 	
+	public void insertCustomer(CustomerDto customerDto) {
+	      mapper.insertCustomer(customerDto);
+	   }
+	
 }

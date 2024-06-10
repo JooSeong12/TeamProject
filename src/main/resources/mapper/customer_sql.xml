@@ -40,8 +40,19 @@
 		mbl_telno = #{customerDto.mbl_telno}, 
 		cr_nm = #{customerDto.cr_nm},
 		road_nm_addr = #{customerDto.road_nm_addr}, 
-		last_mdfcn_dt = #{customerDto.last_mdfcn_dt} 
+		last_mdfcn_dt = #{customerDto.last_mdfcn_dt},
+		pic_nm = #{customerDto.pic_nm},
+		tkcg_dept_nm = #{customerDto.tkcg_dept_nm},
+		pic_role = #{customerDto.pic_role},
+		pic_telno = #{customerDto.pic_telno}
 		WHERE cust_sn = #{customerDto.cust_sn}
 	</update>
+	
+	<insert id="insertCustomer" parameterType="customerDto">
+      INSERT INTO kdt_cust_info_basc(cust_nm, pridtf_no, eml_addr, home_telno, mbl_telno, cr_nm, road_nm_addr, frst_reg_dt, pic_nm,
+       tkcg_dept_nm, pic_role, pic_telno)
+      VALUES(#{cust_nm}, #{pridtf_no}, #{eml_addr}, #{home_telno}, #{mbl_telno}, #{cr_nm}, #{road_nm_addr}, #{frst_reg_dt},
+      #{pic_nm}, #{tkcg_dept_nm}, #{pic_role}, #{pic_telno})
+   </insert>
 	
 </mapper>

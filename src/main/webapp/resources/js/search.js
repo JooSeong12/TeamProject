@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	allData();
+	$("#insertCustomer").hide();
 	function formatPhoneNumber(phoneNumber) {
 		  return phoneNumber.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
 		}
@@ -161,6 +162,10 @@ $(document).ready(function() {
         var mbl_telno = $("#mbl_telno_1").val();
         var cr_nm = $("#cr_nm_1").val();
         var road_nm_addr = $("#road_nm_addr_1").val();
+        var pic_nm = $("#pic_nm_1").val();
+        var tkcg_dept_nm = $("#tkcg_dept_nm_1").val();
+        var pic_role = $("#pic_role_1").val();
+        var pic_telno = $("#pic_telno_1").val();
 
         // 가져온 값들을 객체로 만듦
         var customerDto = {
@@ -171,7 +176,11 @@ $(document).ready(function() {
         	home_telno: home_telno,
         	mbl_telno: mbl_telno,
         	cr_nm: cr_nm,
-        	road_nm_addr: road_nm_addr
+        	road_nm_addr: road_nm_addr,
+        	pic_nm:pic_nm,
+        	tkcg_dept_nm:tkcg_dept_nm,
+        	pic_role:pic_role,
+        	pic_telno:pic_telno
         };
         console.log(customerDto);
         
@@ -225,10 +234,6 @@ $(document).ready(function() {
 	        modal.hide();
 	    });
 
-	    confirmNo.click(function() {
-	        modal.hide();
-	    });
-
 	    confirmYes.click(function() {
 	        var targetId = $("input:radio[name='result']:checked").attr('id'); // 선택된 라디오 버튼(고객)의 ID
 	        if (!targetId) {
@@ -272,4 +277,63 @@ $(document).ready(function() {
 	            }
 	        });
 	    });
+	    
+	  //신규버튼
+	    $("#clearInput").on('click', function(){
+	       $("input[type='text']").val("");
+	       $("input[type='email']").val("");
+	       $("input[type='date']").val("");
+	       $("textarea").val("");
+	       $("#clearInput").hide();
+	   		$("#insertCustomer").show();
+	    });
+	    
+	    //신규고객 등록
+	    $("#insertCustomer").on("click", function() {
+	         var cust_nm = $("#cust_nm_1").val();
+	         var pridtf_no = $("#pridtf_no_1").val();
+	         var eml_addr = $("#eml_addr_1").val();
+	         var home_telno = $("#home_telno_1").val();
+	         var mbl_telno = $("#mbl_telno_1").val();
+	         var cr_nm = $("#cr_nm_1").val();
+	         var road_nm_addr = $("#road_nm_addr_1").val();
+	         var pic_nm = $("#pic_nm_1").val();
+	         var tkcg_dept_nm = $("#tkcg_dept_nm_1").val();
+	         var pic_role = $("#pic_role_1").val();
+	         var pic_telno = $("#pic_telno_1").val();
+	       
+	         // 가져온 값들을 객체로 만듦
+	         var customerDto = {
+	            cust_nm: cust_nm,
+	            pridtf_no: pridtf_no,
+	            eml_addr: eml_addr,
+	            home_telno: home_telno,
+	            mbl_telno: mbl_telno,
+	            cr_nm: cr_nm,
+	            road_nm_addr: road_nm_addr,
+	            pic_nm: pic_nm,
+	            tkcg_dept_nm: tkcg_dept_nm,
+	            pic_role: pic_role,
+	            pic_telno: pic_telno
+	         };
+	         console.log(customerDto);
+	         
+	         // AJAX 요청으로 서버에 데이터 전송
+	         $.ajax({
+	             url: "/insertCustomer",
+	             type: "post",
+	             data: JSON.stringify(customerDto),
+	             contentType: "application/json",
+	             success: function(response) {
+	                 alert("고객 정보가 성공적으로 저장되었습니다.");
+	                 allData();
+	             },
+	             error: function(error) {
+	                 alert("고객 정보 저장 중 오류가 발생했습니다.");
+	             }
+	          
+	         });
+	 	    $("#insertCustomer").hide();
+		    $("#clearInput").show();
+	     });
 });
