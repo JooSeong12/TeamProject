@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.wecky.mapper.CustomerMapper">
+	<select id="customerList" resultType="customerDto">
+		SELECT * FROM kdt_cust_info_basc ORDER BY cust_sn
+	</select>
+	
+	<select id="searchCustomer" parameterType="String" resultType="customerDto">
+		<choose>
+			<when test="keyword != null">
+				SELECT * FROM kdt_cust_info_basc 
+				WHERE cust_nm LIKE '%' || #{keyword} || '%' ORDER BY cust_sn
+			</when>
+			<otherwise>
+				SELECT * FROM kdt_cust_info_basc WHERE 1=0
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="customerInfo" parameterType="String" resultType="customerDto">
+		SELECT * FROM kdt_cust_info_basc WHERE pridtf_no = #{keyword};
+	</select>
+	
+	<select id="managerList" resultType="managerDto">
+		SELECT DISTINCT ON (pic_sn_vl) pic_sn_vl, pic_nm, tkcg_dept_nm, pic_role, pic_telno FROM kdt_cust_info_basc;
+	</select>
+	
+	<delete id="deleteCustomer">
+		DELETE FROM kdt_cust_info_basc
+    	WHERE pridtf_no = #{pridtf_no}
+	</delete>
+	
+	<update id="updateCustomer" parameterType="customerDto">
+		UPDATE kdt_cust_info_basc SET cust_nm = #{customerDto.cust_nm}, 
+		pridtf_no = #{customerDto.pridtf_no}, 
+		eml_addr = #{customerDto.eml_addr}, 
+		home_telno = #{customerDto.home_telno},
+		mbl_telno = #{customerDto.mbl_telno}, 
+		cr_nm = #{customerDto.cr_nm},
+		road_nm_addr = #{customerDto.road_nm_addr}, 
+		last_mdfcn_dt = #{customerDto.last_mdfcn_dt} 
+		WHERE cust_sn = #{customerDto.cust_sn}
+	</update>
+	
+</mapper>
