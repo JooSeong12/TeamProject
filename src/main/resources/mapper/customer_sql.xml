@@ -4,14 +4,14 @@
 
 <mapper namespace="kr.co.wecky.mapper.CustomerMapper">
 	<select id="customerList" resultType="customerDto">
-		SELECT * FROM kdt_cust_info_basc;
+		SELECT * FROM kdt_cust_info_basc ORDER BY cust_sn
 	</select>
 	
 	<select id="searchCustomer" parameterType="String" resultType="customerDto">
 		<choose>
 			<when test="keyword != null">
 				SELECT * FROM kdt_cust_info_basc 
-				WHERE cust_nm LIKE '%' || #{keyword} || '%'
+				WHERE cust_nm LIKE '%' || #{keyword} || '%' ORDER BY cust_sn
 			</when>
 			<otherwise>
 				SELECT * FROM kdt_cust_info_basc WHERE 1=0
@@ -31,8 +31,24 @@
 		DELETE FROM kdt_cust_info_basc
     	WHERE pridtf_no = #{pridtf_no}
 	</delete>
+
 	<insert id="insertCustomer" parameterType="customerDto">
 		INSERT INTO kdt_cust_info_basc(cust_nm, pridtf_no, eml_addr, home_telno, mbl_telno, cr_nm, road_nm_addr, frst_reg_dt)
 		VALUES(#{cust_nm}, #{pridtf_no}, #{eml_addr}, #{home_telno}, #{mbl_telno}, #{cr_nm}, #{road_nm_addr}, #{frst_reg_dt})
 	</insert>
+
+	
+	<update id="updateCustomer" parameterType="customerDto">
+		UPDATE kdt_cust_info_basc SET cust_nm = #{customerDto.cust_nm}, 
+		pridtf_no = #{customerDto.pridtf_no}, 
+		eml_addr = #{customerDto.eml_addr}, 
+		home_telno = #{customerDto.home_telno},
+		mbl_telno = #{customerDto.mbl_telno}, 
+		cr_nm = #{customerDto.cr_nm},
+		road_nm_addr = #{customerDto.road_nm_addr}, 
+		last_mdfcn_dt = #{customerDto.last_mdfcn_dt} 
+		WHERE cust_sn = #{customerDto.cust_sn}
+	</update>
+	
+
 </mapper>

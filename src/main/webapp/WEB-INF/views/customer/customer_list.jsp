@@ -48,6 +48,44 @@
          	<table class="defalut">
 				<tr>
 					<td>**작성일자: </td>
+
+					<td><input type='date'  class='form-control form-control-sm' value="<%= fmDate %>" readonly disabled>
+
+
+					<td><input type="date" class="form-control form-control-sm" id="brdt"></td>
+
+				</tr>
+				<tr>
+					<td>*고객명: </td>
+					<td><input type="text"  id='cust_nm' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*실명번호: </td>
+					<td><input type="text" id='pridtf_no' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*E-mail: </td>
+					<td><input type="email" id='eml_addr' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*전화번호: </td>
+					<td><input type="text" id='home_telno' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*핸드폰번호: </td>
+					<td><input type="text" id='mbl_telno' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*직업: </td>
+					<td><input type="text" id='cr_nm' class="form-control form-control-sm"></td>
+				</tr>
+				<tr>
+					<td>*주소: </td>
+
+					<td><textarea id='road_nm_addr' class="form-control" rows='2' ></textarea></td>
+
+					<td><textarea class="form-control" rows='2' id="road_nm_addr"></textarea></td>
+
 					<td><input type='date'  class='form-control form-control-sm' value="<%= fmDate %>" readonly disabled>
 				</tr>
 				<tr>
@@ -77,6 +115,8 @@
 				<tr>
 					<td>*주소: </td>
 					<td><textarea id='road_nm_addr' class="form-control" rows='2' ></textarea></td>
+
+
 				</tr>
 			</table>
 			<table class="defalut">
@@ -114,9 +154,22 @@
 			</table>
 			<br>
 			<div class="FirstLineButtons">
+
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록" id="insertCustomer">
+
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify" value="변경">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
+
+			    <input type="button" class="btn btn-outline-secondary btn-sm" value="변경">
+
+			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
+			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify" value="변경">
+
+			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
+
+			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규" id="clearValue">
+
+
 			    	<div id="customConfirmModal" class="modal">
 		        		<div class="modal-content">
 		        			<span class="close">&times;</span>
@@ -125,7 +178,12 @@
 				            <!-- <button id="confirmNo">취소</button> -->
 			        	</div>
 		    		</div>
+
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규" id="clearInput">
+
+			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
+
+
 			    <br>
 			</div>
 						

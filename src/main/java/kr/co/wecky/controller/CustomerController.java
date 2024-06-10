@@ -75,16 +75,32 @@ public class CustomerController {
 	    }
 	}
 	
+
 	@PostMapping("/insertCustomer")
+
 	@ResponseBody
 	public String updateCustomer(@RequestBody CustomerDto customerDto){
 		customerDto.setFrst_reg_dt(LocalDate.now());
 		System.out.println(customerDto.toString());
 	    try {
 	        customerService.insertCustomer(customerDto);
+
+    public String insertPost(@RequestBody CustomerDto customerDto) throws Exception {
+
+	@PostMapping("/updateCustomer")
+	@ResponseBody
+	public String updateCustomer(@RequestBody CustomerDto customerDto){
+		customerDto.setLast_mdfcn_dt(LocalDate.now());
+		System.out.println(customerDto.toString());
+	    try {
+	        customerService.updateCustomer(customerDto);
+
 	        return "success";
 	    } catch (Exception e) {
 	        return "error";
 	    }
+	}
+
+		return "redirect:/customer/customer_list";
 	}
 }
