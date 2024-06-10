@@ -128,35 +128,66 @@ $(document).ready(function() {
 	});
 	
 	// 고객 삭제 코드
-	$("#delete").click(function() {
-	    var targetId = $("input:radio[name='result']:checked").attr('id'); // 선택된 라디오 버튼(고객)의 ID
-	    if (!targetId) {
-	        alert("삭제할 고객을 선택해주세요.");
-	        return;
-	    }
-	    console.log(targetId)
-	    $.ajax({
-	        type: "POST",
-	        url: "/deleteCustomer",
-	        contentType: "application/json",
-	        data: JSON.stringify({ pridtf_no: targetId }),
-	        success: function(response) {
-	            if (response === "success") { // 서버에서 문자열로 반환하므로 비교할 값도 문자열로 변경
-	                alert("고객이 삭제되었습니다.");
-	                
-	                if($("#keyword").val().trim() != ""){
-	                	searchDate(keyword)
-	                } else {
-	                	allData();
-	                } 
-	            } else {
-	                alert("고객 삭제에 실패했습니다. 다시 시도해주세요.");
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error("AJAX 요청 중 에러 발생:", error);
-	            alert("고객 삭제에 실패했습니다. 서버와의 통신에 문제가 발생했습니다.");
+	$(document).ready(function() {
+	    var modal = $("#customConfirmModal");
+	    var span = $(".close");
+	    var confirmYes = $("#confirmYes");
+	    var confirmNo = $("#confirmNo");
+
+	    $("#delete").click(function() {
+	        modal.show();
+	    });
+
+	    span.click(function() {
+	        modal.hide();
+	    });
+
+	    confirmNo.click(function() {
+	        modal.hide();
+	    });
+
+	    confirmYes.click(function() {
+	        var targetId = $("input:radio[name='result']:checked").attr('id'); // 선택된 라디오 버튼(고객)의 ID
+	        if (!targetId) {
+	            alert("삭제할 고객을 선택해주세요.");
+	            modal.hide();
+	            return;
 	        }
+	        
+	        $.ajax({
+	            type: "POST",
+	            url: "/deleteCustomer",
+	            contentType: "application/json",
+	            data: JSON.stringify({ pridtf_no: targetId }),
+	            success: function(response) {
+	                if (response === "success") { // 서버에서 문자열로 반환하므로 비교할 값도 문자열로 변경
+	                    alert("고객이 삭제되었습니다.");
+	                    
+	                    // 검색 키워드가 있으면 해당 검색으로 재검색
+	                    if($("#keyword").val().trim() != ""){
+	                        var keyword = $("#keyword").val().trim();
+	                        if (keyword == "") {
+	                            alert('검색어를 입력하세요');
+	                        } else {
+	                            var keyname = "keyword";
+	                            var obj = {};
+	                            obj[keyname] = keyword;
+	                            searchDate(obj);
+	                        }
+	                    } else {
+	                        allData();
+	                    } 
+	                } else {
+	                    alert("고객 삭제에 실패했습니다. 다시 시도해주세요.");
+	                }
+	                modal.hide();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("AJAX 요청 중 에러 발생:", error);
+	                alert("고객 삭제에 실패했습니다. 서버와의 통신에 문제가 발생했습니다.");
+	                modal.hide();
+	            }
+	        });
 	    });
 	});
 });

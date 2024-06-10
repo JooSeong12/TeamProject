@@ -112,9 +112,20 @@
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="변경">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
+			    	<div id="customConfirmModal" class="modal">
+		        		<div class="modal-content">
+		        			<span class="close">&times;</span>
+				            <p>[삭제] 버튼을 클릭하면 해당 고객 정보가 삭제 됩니다. 삭제 시 복구가 불가능하므로 주의해야 합니다.</p>
+				            <button id="confirmYes">확인</button>
+				            <!-- <button id="confirmNo">취소</button> -->
+			        	</div>
+		    		</div>
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
 			    <br>
 			</div>
+			
+			
+			
 			<div class="secondLineButtons">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="고객조회">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="종료">
