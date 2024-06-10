@@ -9,12 +9,19 @@ $(document).ready(function() {
 	function formatPridtfNumber(pridtfNumber) {
 		  return pridtfNumber.replace(/(\d{6})(\d{7})/, '$1-$2');
 		}
+	
 	// 레디오 버튼 선택 시 고객 detail 화면 
-	$(document).on("click", "input:radio[name='result']", function(){
-	var targetId = $(this).attr('id');
+	$(document).on("click", "input:radio[name='result']", radioClick);
+	
+	function radioClick(event) {
+		var targetId = $(event.target).attr('id');
+		selectCustomer(targetId);
+	}
+	
+	function selectCustomer(id) {
     var keyname = "keyword";
     var obj = {};
-    obj[keyname] = targetId;
+    obj[keyname] = id;
 		$.ajax({
       url : "/customerInfo",
       type : "post",
@@ -26,7 +33,9 @@ $(document).ready(function() {
     	  customerDetails(data);
       }
     });
-});
+}
+
+
 	// 조건 검색
 	$("#condition").on("click", function() {
 	    var keyword = $("#keyword").val().trim();
@@ -40,7 +49,7 @@ $(document).ready(function() {
 	    }
     });
 	
-	function searchDate(obj) {
+	function searchData(obj) {
 	      $.ajax({
 	        url : "/customerOne",
 	        type : "post",
@@ -97,35 +106,99 @@ $(document).ready(function() {
             String(currentDate.getDate()).padStart(2, '0');
 
         var strContent = "<tr> <td> **작성일자: </td>" + "<td><input type='text'  class='form-control form-control-sm' value='" + formattedDate + "' readonly disabled>" +
-            "<input type='hidden' name='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
-            "<tr> <td> *고객명: </td>" + "<td><input type='text' name='cust_nm' class='form-control form-control-sm' value='" + data.cust_nm + "'></td> </tr>" +
-            "<tr> <td> *실명번호: </td>" + "<td><input type='text' name='pridtf_no' class='form-control form-control-sm' value='" + formatPridtfNumber(data.pridtf_no)  + "'></td> </tr>" +
-            "<tr> <td> *E-mail: </td>" + "<td><input type='text' name='eml_addr' class='form-control form-control-sm' value='" + data.eml_addr  + "'></td> </tr>" +
-            "<tr> <td> *전화번호: </td>" + "<td><input type='text' name='home_telno' class='form-control form-control-sm' value='" + formatTelNumber(data.home_telno)  + "'></td> </tr>" +
-            "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' name='mbl_telno' class='form-control form-control-sm' value='" + formatPhoneNumber(data.mbl_telno)  + "'></td> </tr>" +
-            "<tr> <td> *직업: </td>" + "<td><input type='text' name='cr_nm' class='form-control form-control-sm' value='" + data.cr_nm  + "'></td> </tr>" +
-            "<tr> <td> *주소: </td>" + "<td><textarea name='road_nm_addr' class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
+            "<input type='hidden' id='last_mdfcn_dt' value='" + formattedDate + "'></td> </tr>" +
+            "<tr> <td> *고객명: </td>" + "<td><input type='text' id='cust_nm_1' class='form-control form-control-sm' value='" + data.cust_nm + "'>" +
+            "<input type='hidden' id='cust_sn_1' value='" + data.cust_sn + "'></td> </tr>" +
+            "<tr> <td> *실명번호: </td>" + "<td><input type='text' id='pridtf_no_1' class='form-control form-control-sm' value='" + data.pridtf_no  + "'></td> </tr>" +
+            "<tr> <td> *E-mail: </td>" + "<td><input type='text' id='eml_addr_1' class='form-control form-control-sm' value='" + data.eml_addr  + "'></td> </tr>" +
+            "<tr> <td> *전화번호: </td>" + "<td><input type='text' id='home_telno_1' class='form-control form-control-sm' value='" + data.home_telno  + "'></td> </tr>" +
+            "<tr> <td> *핸드폰번호: </td>" + "<td><input type='text' id='mbl_telno_1' class='form-control form-control-sm' value='" + data.mbl_telno  + "'></td> </tr>" +
+            "<tr> <td> *직업: </td>" + "<td><input type='text' id='cr_nm_1' class='form-control form-control-sm' value='" + data.cr_nm  + "'></td> </tr>" +
+            "<tr> <td> *주소: </td>" + "<td><textarea id='road_nm_addr_1' class='form-control' rows='2'>" + data.road_nm_addr + "</textarea></td> </tr>";
         
         var strManager = "<tr> <td> 관리담당자: </td>" + "<td><div class='input-group input-group-sm'>" +
-            "<input type='text'class='form-control' name='pic_nm' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
+            "<input type='text'class='form-control'id='pic_nm_1' aria-label='Text input with icon' value='" + data.pic_nm + "'>" +
             "<span id='searchIcon' class='input-group-text search-icon'><i class='bi bi-search'></i></span></div></td> </tr>" +
-            "<tr> <td> **부서: </td>" + "<td><input type='text' name='tkcg_dept_nm' class='form-control form-control-sm' value='" + data.tkcg_dept_nm  + "' readonly disabled></td> </tr>" +
-            "<tr> <td> **직위: </td>" + "<td><input type='text'name='pic_role' class='form-control form-control-sm' value='" + data.pic_role  + "' readonly disabled></td> </tr>" +
-            "<tr> <td> **연락처: </td>" + "<td><input type='text' name='pic_telno' class='form-control form-control-sm' value='"+ formatPhoneNumber(data.pic_telno) + "' readonly disabled></td> </tr>";
+            "<tr> <td> **부서: </td>" + "<td><input type='text' id='tkcg_dept_nm_1' class='form-control form-control-sm' value='" + data.tkcg_dept_nm  + "' readonly disabled></td> </tr>" +
+            "<tr> <td> **직위: </td>" + "<td><input type='text'id='pic_role_1' class='form-control form-control-sm' value='" + data.pic_role  + "' readonly disabled></td> </tr>" +
+            "<tr> <td> **연락처: </td>" + "<td><input type='text' id='pic_telno_1' class='form-control form-control-sm' value='"+ data.pic_telno + "' readonly disabled></td> </tr>";
 
         $("#customer").html(strContent);
         $("#manager").html(strManager);
+        $("#customer").show();
+        $("#manager").show();
         $(".defalut").hide();
     }
 	
 	$("#all").on("click", function() {
 		allData();
 	});
+
+	// defalut input 상자 초기화
+	function inputClear() {
+        $('.defalut input').each(function() {
+            if (!$(this).is('[readonly]') && !$(this).is('[disabled]')) {
+                console.log('Before reset:', $(this).val());
+                $(this).val('');
+                console.log('After reset:', $(this).val());
+            }
+        });
+        $('.defalut textarea').each(function() {
+            console.log('Before reset:', $(this).val());
+            $(this).val('');
+            console.log('After reset:', $(this).val());
+        });
+    }
+	
+	
+	// 고객 정보 수정
+	
+	$("#modify").on("click", function() {
+		var cust_sn = $("#cust_sn_1").val();
+        var cust_nm = $("#cust_nm_1").val();
+        var pridtf_no = $("#pridtf_no_1").val();
+        var eml_addr = $("#eml_addr_1").val();
+        var home_telno = $("#home_telno_1").val();
+        var mbl_telno = $("#mbl_telno_1").val();
+        var cr_nm = $("#cr_nm_1").val();
+        var road_nm_addr = $("#road_nm_addr_1").val();
+
+        // 가져온 값들을 객체로 만듦
+        var customerDto = {
+        	cust_sn: cust_sn,
+        	cust_nm: cust_nm,
+        	pridtf_no: pridtf_no,
+        	eml_addr: eml_addr,
+        	home_telno: home_telno,
+        	mbl_telno: mbl_telno,
+        	cr_nm: cr_nm,
+        	road_nm_addr: road_nm_addr
+        };
+        console.log(customerDto);
+        
+        // AJAX 요청으로 서버에 데이터 전송
+        $.ajax({
+            url: "/updateCustomer",
+            type: "post",
+            data: JSON.stringify(customerDto),
+            contentType: "application/json",
+            success: function(response) {
+                alert("고객 정보가 성공적으로 저장되었습니다.");
+                allData();
+            },
+            error: function(error) {
+                alert("고객 정보 저장 중 오류가 발생했습니다.");
+            }
+			
+        });
+    });
+	
 	
 	$(document).on('click', '.search-icon', function() {
 		    var jspPath = '/managerList';
 		    window.open(jspPath, '_blank', 'width=300, height=500, top=50, left=50, scrollbars=yes');
 	});
+	
 	
 	// 고객 삭제 코드
 	$(document).ready(function() {

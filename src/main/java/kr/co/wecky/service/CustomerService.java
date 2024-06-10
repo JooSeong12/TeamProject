@@ -35,8 +35,14 @@ public class CustomerService {
 		mapper.deleteCustomer(pridtf_no);
 	}
 
+
 	public void insertCustomer(CustomerDto customerDto) {
 		mapper.insertCustomer(customerDto);
+
+	public void updateCustomer(CustomerDto customerDto) {
+		mapper.updateCustomer(customerDto);
+		
+
 	}
 	
 }
