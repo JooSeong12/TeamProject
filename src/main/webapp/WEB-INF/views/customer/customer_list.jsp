@@ -1,6 +1,13 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    Date today = new Date(); 
+    SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+    String fmDate = fm.format(today);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,42 +42,41 @@
 			        </tr>
 			    </table>
 			</div>
-        </div>
-		
+		</div>
         <div class="content">
          	<h2>회원정보</h2>
          	<table class="defalut">
 				<tr>
 					<td>**작성일자: </td>
-					<td><input type="date" class="form-control form-control-sm"></td>
+					<td><input type='date'  class='form-control form-control-sm' value="<%= fmDate %>" readonly disabled>
 				</tr>
 				<tr>
 					<td>*고객명: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text"  id='cust_nm' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*실명번호: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='pridtf_no' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*E-mail: </td>
-					<td><input type="email" class="form-control form-control-sm"></td>
+					<td><input type="email" id='eml_addr' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*전화번호: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='home_telno' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*핸드폰번호: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='mbl_telno' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*직업: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='cr_nm' class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*주소: </td>
-					<td><textarea class="form-control" rows='2' ></textarea></td>
+					<td><textarea id='road_nm_addr' class="form-control" rows='2' ></textarea></td>
 				</tr>
 			</table>
 			<table class="defalut">
@@ -78,28 +84,27 @@
 					<td>관리담당자: </td>
 					<td>
 					<div class="input-group input-group-sm">
-					    <input type="text" class="form-control" aria-label="Text input with icon">
-					    <span id="searchIcon" class="input-group-text"><i class="bi bi-search"></i></span>
+					    <input type="text"  id='pic_nm' class="form-control" aria-label="Text input with icon">
+					    <span id="searchIcon" class="input-group-text search-icon"><i class="bi bi-search"></i></span>
 					 </div>
 					</td>
 				</tr>
 				<tr>
 					<td>**부서: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='tkcg_dept_nm' class="form-control form-control-sm" readonly disabled></td>
 				</tr>
 				<tr>
 					<td>**직위: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='pic_role' class="form-control form-control-sm" readonly disabled></td>
 				</tr>
 				<tr>
 					<td>**연락처: </td>
-					<td><input type="text" class="form-control form-control-sm"></td>
+					<td><input type="text" id='pic_telno' class="form-control form-control-sm" readonly disabled></td>
 				</tr>
 			</table>
         	<table id="customer"></table>
         	<table id="manager"></table>
         </div>
-		
         <div class="consulting">
             <h2>상담내역</h2>
             <table style="height: 610px;">
@@ -110,7 +115,7 @@
 			<br>
 			<div class="FirstLineButtons">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
-			    <input type="button" class="btn btn-outline-secondary btn-sm" value="변경">
+			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify" value="변경">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
 			    	<div id="customConfirmModal" class="modal">
 		        		<div class="modal-content">
@@ -123,9 +128,7 @@
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
 			    <br>
 			</div>
-			
-			
-			
+						
 			<div class="secondLineButtons">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="고객조회">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="종료">
