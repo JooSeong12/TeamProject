@@ -1,13 +1,6 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-    Date today = new Date(); 
-    SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-    String fmDate = fm.format(today);
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,6 +13,7 @@
     <link href="${contextPath}/resources/css/customer.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/js/search.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
 </head>
 <body>
     <div class="header">
@@ -42,41 +36,42 @@
 			        </tr>
 			    </table>
 			</div>
-		</div>
+        </div>
+		
         <div class="content">
          	<h2>회원정보</h2>
          	<table class="defalut">
 				<tr>
 					<td>**작성일자: </td>
-					<td><input type='date'  class='form-control form-control-sm' value="<%= fmDate %>" readonly disabled>
+					<td><input type="date" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*고객명: </td>
-					<td><input type="text"  id='cust_nm' class="form-control form-control-sm"></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*실명번호: </td>
-					<td><input type="text" id='pridtf_no' class="form-control form-control-sm"></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*E-mail: </td>
-					<td><input type="email" id='eml_addr' class="form-control form-control-sm"></td>
+					<td><input type="email" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*전화번호: </td>
-					<td><input type="text" id='home_telno' class="form-control form-control-sm"></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*핸드폰번호: </td>
-					<td><input type="text" id='mbl_telno' class="form-control form-control-sm"></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*직업: </td>
-					<td><input type="text" id='cr_nm' class="form-control form-control-sm"></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>*주소: </td>
-					<td><textarea id='road_nm_addr' class="form-control" rows='2' ></textarea></td>
+					<td><textarea class="form-control" rows='2' ></textarea></td>
 				</tr>
 			</table>
 			<table class="defalut">
@@ -84,27 +79,28 @@
 					<td>관리담당자: </td>
 					<td>
 					<div class="input-group input-group-sm">
-					    <input type="text"  id='pic_nm' class="form-control" aria-label="Text input with icon">
-					    <span id="searchIcon" class="input-group-text search-icon"><i class="bi bi-search"></i></span>
+					    <input type="text" class="form-control" aria-label="Text input with icon">
+					    <span id="searchIcon" class="input-group-text"><i class="bi bi-search"></i></span>
 					 </div>
 					</td>
 				</tr>
 				<tr>
 					<td>**부서: </td>
-					<td><input type="text" id='tkcg_dept_nm' class="form-control form-control-sm" readonly disabled></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>**직위: </td>
-					<td><input type="text" id='pic_role' class="form-control form-control-sm" readonly disabled></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 				<tr>
 					<td>**연락처: </td>
-					<td><input type="text" id='pic_telno' class="form-control form-control-sm" readonly disabled></td>
+					<td><input type="text" class="form-control form-control-sm"></td>
 				</tr>
 			</table>
         	<table id="customer"></table>
         	<table id="manager"></table>
         </div>
+		
         <div class="consulting">
             <h2>상담내역</h2>
             <table style="height: 610px;">
@@ -115,20 +111,22 @@
 			<br>
 			<div class="FirstLineButtons">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="등록">
-			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify" value="변경">
+			    <input type="button" class="btn btn-outline-secondary btn-sm" id="modify"value="변경">
 			    <input type="button" class="btn btn-outline-secondary btn-sm" id="delete" value="삭제">
 			    	<div id="customConfirmModal" class="modal">
 		        		<div class="modal-content">
 		        			<span class="close">&times;</span>
+		        			<span class="material-symbols-outlined" style="font-size: 70px;">
+							error
+							</span>
 				            <p>[삭제] 버튼을 클릭하면 해당 고객 정보가 삭제 됩니다. 삭제 시 복구가 불가능하므로 주의해야 합니다.</p>
 				            <button id="confirmYes">확인</button>
-				            <!-- <button id="confirmNo">취소</button> -->
 			        	</div>
 		    		</div>
 			    <input type="button" class="btn btn-outline-secondary btn-sm" value="신규">
 			    <br>
 			</div>
-						
+			
 			<div class="secondLineButtons">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="고객조회">
 			        <input type="button" class="btn btn-outline-secondary btn-sm" value="종료">
@@ -137,4 +135,3 @@
     </div>
 </body>
 </html>
-	

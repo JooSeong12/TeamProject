@@ -45,7 +45,7 @@ $(document).ready(function() {
 	      var keyname = "keyword";
 	      var obj = {};
 	      obj[keyname] = keyword;
-	      searchDate(obj);
+	      searchData(obj);
 	    }
     });
 	
@@ -152,7 +152,6 @@ $(document).ready(function() {
 	
 	
 	// 고객 정보 수정
-	
 	$("#modify").on("click", function() {
 		var cust_sn = $("#cust_sn_1").val();
         var cust_nm = $("#cust_nm_1").val();
@@ -184,12 +183,25 @@ $(document).ready(function() {
             contentType: "application/json",
             success: function(response) {
                 alert("고객 정보가 성공적으로 저장되었습니다.");
-                allData();
+                
+             // 검색 키워드가 있으면 해당 검색으로 재검색, 없으면 전체 데이터 다시 불러오기
+                var keyword = $("#keyword").val().trim();
+                if (keyword !== "") {
+                    var keyname = "keyword";
+                    var obj = {};
+                    obj[keyname] = keyword;
+                    searchData(obj);
+                } else {
+                    allData();
+                }
+                
+             // 수정한 고객의 정보를 다시 불러오기
+                radioClick({ target: { id: pridtf_no } });
             },
             error: function(error) {
                 alert("고객 정보 저장 중 오류가 발생했습니다.");
             }
-			
+		
         });
     });
 	
@@ -201,11 +213,9 @@ $(document).ready(function() {
 	
 	
 	// 고객 삭제 코드
-	$(document).ready(function() {
 	    var modal = $("#customConfirmModal");
 	    var span = $(".close");
 	    var confirmYes = $("#confirmYes");
-	    var confirmNo = $("#confirmNo");
 
 	    $("#delete").click(function() {
 	        modal.show();
@@ -245,7 +255,7 @@ $(document).ready(function() {
 	                            var keyname = "keyword";
 	                            var obj = {};
 	                            obj[keyname] = keyword;
-	                            searchDate(obj);
+	                            searchData(obj);
 	                        }
 	                    } else {
 	                        allData();
@@ -262,5 +272,4 @@ $(document).ready(function() {
 	            }
 	        });
 	    });
-	});
 });
