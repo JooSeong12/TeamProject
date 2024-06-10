@@ -32,7 +32,7 @@
     	WHERE pridtf_no = #{pridtf_no}
 	</delete>
 	<insert id="insertCustomer" parameterType="customerDto">
-		INSERT INTO kdt_cust_info_basc(cust_nm, pridtf_no, eml_addr, home_telno, mbl_telno, cr_nm, road_nm_addr)
-		VALUES(#{cust_nm}, #{pridtf_no}, #{eml_addr}, #{home_telno}, #{mbl_telno}, #{cr_nm}, #{road_nm_addr})
+		INSERT INTO kdt_cust_info_basc(cust_nm, pridtf_no, eml_addr, home_telno, mbl_telno, cr_nm, road_nm_addr, frst_reg_dt)
+		VALUES(#{cust_nm}, #{pridtf_no}, #{eml_addr}, #{home_telno}, #{mbl_telno}, #{cr_nm}, #{road_nm_addr}, #{frst_reg_dt})
 	</insert>
 </mapper>

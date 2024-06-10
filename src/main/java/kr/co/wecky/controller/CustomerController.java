@@ -1,5 +1,6 @@
 package kr.co.wecky.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,10 +76,15 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/insertCustomer")
-    public String insertPost(@RequestBody CustomerDto customerDto) throws Exception {
-
-		customerService.insertCustomer(customerDto);
-
-		return "redirect:/customer/customer_list";
+	@ResponseBody
+	public String updateCustomer(@RequestBody CustomerDto customerDto){
+		customerDto.setFrst_reg_dt(LocalDate.now());
+		System.out.println(customerDto.toString());
+	    try {
+	        customerService.insertCustomer(customerDto);
+	        return "success";
+	    } catch (Exception e) {
+	        return "error";
+	    }
 	}
 }
