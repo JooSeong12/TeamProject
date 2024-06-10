@@ -87,5 +87,18 @@ public class CustomerController {
 	        return "error";
 	    }
 	}
+	
+		@PostMapping("/insertCustomer")
+	   @ResponseBody
+	   public String insertCustomer(@RequestBody CustomerDto customerDto){
+	      customerDto.setFrst_reg_dt(LocalDate.now());
+	      System.out.println(customerDto.toString());
+	       try {
+	           customerService.insertCustomer(customerDto);
+	           return "success";
+	       } catch (Exception e) {
+	           return "error";
+	       }
+	   }
 
 }
