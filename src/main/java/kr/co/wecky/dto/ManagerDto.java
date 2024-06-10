@@ -16,4 +16,5 @@ public class ManagerDto {
 	private String tkcg_dept_nm;
 	private String pic_role;
 	private String pic_telno;
+	
 }
